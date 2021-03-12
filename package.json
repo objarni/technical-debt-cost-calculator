@@ -2,7 +2,8 @@
   "description": "A simple Elm Web App that calculates the approximate cost of technical debt",
   "scripts": {
     "elm": "elm",
-    "start": "elm-live src/Main.elm"
+    "start": "elm-live src/Main.elm",
+    "format": "elm-format src/Main.elm --yes"
   },
   "license": "MIT",
   "bugs": {
@@ -11,6 +12,7 @@
   "homepage": "https://github.com/objarni/technical-debt-cost-calculator#readme",
   "devDependencies": {
     "elm": "^0.19.1-5",
+    "elm-format": "^0.8.5",
     "elm-live": "^4.0.2"
   }
 }
