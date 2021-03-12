@@ -1,21 +1,36 @@
 module Main exposing (..)
 
+import Browser
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Input as Input
 import Html exposing (Html)
 
-type Model = Model Int
+type Model = Model Float
 
 type Msg = UpdateWage Float
 
 
-main : Html Msg
+
+main : Program () Model Msg
 main =
+    Browser.sandbox
+        { init = initialModel
+        , view = view
+        , update = update
+        }
+
+initialModel = Model 30000
+
+view : Model -> Html Msg
+view (Model wage) =
     Element.layout []
         calculator
 
+update : Msg-> Model -> Model
+update msg _ = case msg of
+    UpdateWage newWage -> Model newWage
 
 calculator : Element Msg
 calculator =
