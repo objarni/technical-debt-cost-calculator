@@ -8,27 +8,35 @@ import Html exposing (Html)
 main : Html msg
 main =
     Element.layout []
-        -- layout converts from Element to Html
         calculator
 
 
 calculator : Element a
 calculator =
-    Element.el
-        [ Element.centerX -- these two centers the div
+    Element.column
+        [ Element.centerX
         , Element.centerY
         , Element.padding 40
+        , Element.spacing 40
         , Element.Background.color (Element.rgb255 230 230 250)
         ]
-        box
+        [ title, box, approximation ]
+
+
+title =
+    Element.text "Uppskatta kostnaden för er tekniska skuld"
 
 
 box =
     Element.column
         -- these two centers the Element.text in div
         [ Element.centerX, Element.centerY ]
-        [ Element.text "Number of developers"
-        , Element.text "Average salary (per month)"
-        , Element.text "Unplanned work per unit time (%)"
-        , Element.text "Approximate cost of technical debt (per month)"
+        [ Element.text "Antal utvecklare"
+        , Element.text "Snittlön (kr)"
+        , Element.text "Uppskattad fördelning buggar/omskrivning (%)*"
+        , Element.text "Uppskattad kostnad teknisk skuld (per månad)"
         ]
+
+
+approximation =
+    Element.text "Mycket pengar"
