@@ -17,16 +17,18 @@ calculator =
     Element.el
         [ Element.centerX -- these two centers the div
         , Element.centerY
+        , Element.padding 40
         , Element.Background.color (Element.rgb255 230 230 250)
-        , Element.width (Element.px 150)
-        , Element.height (Element.px 150)
         ]
         box
 
 
-box = Element.column
-            -- these two centers the Element.text in div
-            [ Element.centerX, Element.centerY ]
-            [Element.text "Number of developers",
-            Element.text "Average salary",
-            Element.text "Unplanned work per unit time (%)"]
+box =
+    Element.column
+        -- these two centers the Element.text in div
+        [ Element.centerX, Element.centerY ]
+        [ Element.text "Number of developers"
+        , Element.text "Average salary (per month)"
+        , Element.text "Unplanned work per unit time (%)"
+        , Element.text "Approximate cost of technical debt (per month)"
+        ]
