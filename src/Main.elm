@@ -26,14 +26,14 @@ initialModel = Model 30000
 view : Model -> Html Msg
 view (Model wage) =
     Element.layout []
-        calculator
+        (calculator wage)
 
 update : Msg-> Model -> Model
 update msg _ = case msg of
     UpdateWage newWage -> Model newWage
 
-calculator : Element Msg
-calculator =
+calculator : Float -> Element Msg
+calculator wage =
     Element.column
         [ Element.centerX
         , Element.centerY
@@ -41,14 +41,14 @@ calculator =
         , Element.spacing 40
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box, approximation ]
+        [ title, box wage, approximation ]
 
 
 title =
     Element.text "Uppskatta kostnaden för er tekniska skuld"
 
 
-box =
+box wage =
     --let
     --    avgWage =
     --        Element.text "Snittlön (kr)"
@@ -57,7 +57,7 @@ box =
         -- these two centers the Element.text in div
         [ Element.centerX, Element.centerY ]
         [ Element.text "Antal utvecklare"
-        , avgWage
+        , avgWage wage
         , Element.text "Uppskattad fördelning buggar/omskrivning (%)*"
         , Element.text "Uppskattad kostnad teknisk skuld (per månad)"
         ]
@@ -66,7 +66,8 @@ box =
 approximation =
     Element.text "Mycket pengar"
 
-avgWage =
+avgWage : Float -> Element Msg
+avgWage wage =
     Input.slider
         [ Element.height (Element.px 30)
 
@@ -85,11 +86,11 @@ avgWage =
         { onChange = UpdateWage
         , label =
             Input.labelAbove []
-                (Element.text "Genomsnittslön (per månad)")
+                (Element.text ("Genomsnittslön (per månad): " ++ (String.fromFloat wage)))
         , min = 20000
         , max = 75000
         , step = Just 2500
-        , value = 25000
+        , value = wage
         , thumb =
             Input.defaultThumb
         }
