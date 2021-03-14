@@ -19,26 +19,26 @@ main =
 
 
 initialModel =
-    Model 3 30000
+    TechDebtData {numberOfDevs = 3, averageWage = 30000}
 
 
 view : Model -> Html Msg
-view (Model devs wage) =
+view (TechDebtData data) =
     Element.layout []
-        (calculator devs wage)
+        (calculator data)
 
 
 update : Msg -> Model -> Model
-update msg (Model devs wage) =
+update msg (TechDebtData data) =
     case msg of
         UpdateWage newWage ->
-            Model devs newWage
+            TechDebtData {data | averageWage = newWage}
 
         UpdateDevs newDevsCount ->
-            Model newDevsCount wage
+            TechDebtData {data | numberOfDevs = newDevsCount}
 
 
-calculator devs wage =
+calculator data =
     Element.column
         [ Element.centerX
         , Element.centerY
@@ -46,7 +46,7 @@ calculator devs wage =
         , Element.spacing 40
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box devs wage, approximation ]
+        [ title, box data.numberOfDevs data.averageWage, approximation ]
 
 
 title =

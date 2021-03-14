@@ -3,7 +3,7 @@ module Model exposing (..)
 
 
 type Model
-    = Model Int Int
+    = TechDebtData {numberOfDevs:Int, averageWage:Int}
 
 
 type Msg
