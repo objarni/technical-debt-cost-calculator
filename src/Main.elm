@@ -3,13 +3,9 @@ module Main exposing (..)
 import Browser
 import Element exposing (Element)
 import Element.Background as Background
-import Element.Border as Border
-import Element.Input as Input
 import Html exposing (Html)
-
-type Model = Model Float
-
-type Msg = UpdateWage Float
+import Components exposing (sliderElement)
+import Model exposing (..)
 
 
 
@@ -21,19 +17,28 @@ main =
         , update = update
         }
 
-initialModel = Model 30000
+
+initialModel =
+    Model 3 30000
+
 
 view : Model -> Html Msg
-view (Model wage) =
+view (Model devs wage) =
     Element.layout []
-        (calculator wage)
+        (calculator devs wage)
 
-update : Msg-> Model -> Model
-update msg _ = case msg of
-    UpdateWage newWage -> Model newWage
 
-calculator : Float -> Element Msg
-calculator wage =
+update : Msg -> Model -> Model
+update msg (Model devs wage) =
+    case msg of
+        UpdateWage newWage ->
+            Model devs newWage
+
+        UpdateDevs newDevsCount ->
+            Model newDevsCount wage
+
+
+calculator devs wage =
     Element.column
         [ Element.centerX
         , Element.centerY
@@ -41,22 +46,17 @@ calculator wage =
         , Element.spacing 40
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box wage, approximation ]
+        [ title, box devs wage, approximation ]
 
 
 title =
     Element.text "Uppskatta kostnaden för er tekniska skuld"
 
 
-box wage =
-    --let
-    --    avgWage =
-    --        Element.text "Snittlön (kr)"
-    --in
+box devs wage =
     Element.column
-        -- these two centers the Element.text in div
         [ Element.centerX, Element.centerY ]
-        [ Element.text "Antal utvecklare"
+        [ numDevs devs
         , avgWage wage
         , Element.text "Uppskattad fördelning buggar/omskrivning (%)*"
         , Element.text "Uppskattad kostnad teknisk skuld (per månad)"
@@ -66,31 +66,54 @@ box wage =
 approximation =
     Element.text "Mycket pengar"
 
-avgWage : Float -> Element Msg
-avgWage wage =
-    Input.slider
-        [ Element.height (Element.px 30)
 
-        -- Here is where we're creating/styling the "track"
-        , Element.behindContent
-            (Element.el
-                [ Element.width Element.fill
-                , Element.height (Element.px 2)
-                , Element.centerY
-                , Background.color (Element.rgb255  0 0 250)
-                , Border.rounded 2
-                ]
-                Element.none
-            )
-        ]
-        { onChange = UpdateWage
-        , label =
-            Input.labelAbove []
-                (Element.text ("Genomsnittslön (per månad): " ++ (String.fromFloat wage)))
-        , min = 20000
-        , max = 75000
-        , step = Just 2500
-        , value = wage
-        , thumb =
-            Input.defaultThumb
-        }
+numDevs : Int -> Element Msg
+numDevs devCount =
+    let
+        updateFn =
+            UpdateDevs
+
+        text =
+            "Antal utvecklare: " ++ String.fromInt devCount
+
+        value =
+            devCount
+
+        step =
+            1
+
+        minValue =
+            3
+
+        maxValue =
+            12
+    in
+    sliderElement updateFn text value step minValue maxValue
+
+
+avgWage : Int -> Element Msg
+avgWage wage =
+    let
+        updateFn =
+            UpdateWage
+
+        text =
+            "Genomsnittslön (per månad): " ++ String.fromInt wage
+
+        value =
+            wage
+
+        step =
+            2500
+
+        minValue =
+            20000
+
+        maxValue =
+            75000
+    in
+    sliderElement updateFn text value step minValue maxValue
+
+
+
+
