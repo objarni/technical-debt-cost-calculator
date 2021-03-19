@@ -79,29 +79,10 @@ numDevs devCount =
 
 avgWage : Int -> Element Msg
 avgWage wage =
-    let
-        updateFn =
-            UpdateWage
-
-        text =
-            "Genomsnittslön (per månad): " ++ String.fromInt wage
-
-        value =
-            wage
-
-        step =
-            2500
-
-        minValue =
-            20000
-
-        maxValue =
-            75000
-    in
-    sliderElement updateFn
-        { text = text
-        , value = value
-        , step = step
-        , minValue = minValue
-        , maxValue = maxValue
+    sliderElement UpdateWage
+        { text = "Genomsnittslön (per månad): " ++ String.fromInt wage
+        , value = wage
+        , step = 2500
+        , minValue = 20000
+        , maxValue = 75000
         }
