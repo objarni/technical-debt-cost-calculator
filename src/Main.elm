@@ -68,31 +68,12 @@ approximation =
 
 numDevs : Int -> Element Msg
 numDevs devCount =
-    let
-        updateFn =
-            UpdateDevs
-
-        text =
-            "Antal utvecklare: " ++ String.fromInt devCount
-
-        value =
-            devCount
-
-        step =
-            1
-
-        minValue =
-            3
-
-        maxValue =
-            12
-    in
-    sliderElement updateFn
-        { text = text
-        , value = value
-        , step = step
-        , minValue = minValue
-        , maxValue = maxValue
+    sliderElement UpdateDevs
+        { text = "Antal utvecklare: " ++ String.fromInt devCount
+        , value = devCount
+        , step = 1
+        , minValue = 3
+        , maxValue = 12
         }
 
 
