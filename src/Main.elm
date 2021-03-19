@@ -1,12 +1,11 @@
 module Main exposing (..)
 
 import Browser
+import Components exposing (sliderElement)
 import Element exposing (Element)
 import Element.Background as Background
 import Html exposing (Html)
-import Components exposing (sliderElement)
 import Model exposing (..)
-
 
 
 main : Program () Model Msg
@@ -19,7 +18,7 @@ main =
 
 
 initialModel =
-    TechDebtData {numberOfDevs = 3, averageWage = 30000}
+    TechDebtData { numberOfDevs = 3, averageWage = 30000 }
 
 
 view : Model -> Html Msg
@@ -32,10 +31,10 @@ update : Msg -> Model -> Model
 update msg (TechDebtData data) =
     case msg of
         UpdateWage newWage ->
-            TechDebtData {data | averageWage = newWage}
+            TechDebtData { data | averageWage = newWage }
 
         UpdateDevs newDevsCount ->
-            TechDebtData {data | numberOfDevs = newDevsCount}
+            TechDebtData { data | numberOfDevs = newDevsCount }
 
 
 calculator data =
@@ -88,7 +87,13 @@ numDevs devCount =
         maxValue =
             12
     in
-    sliderElement updateFn text value step minValue maxValue
+    sliderElement updateFn
+        { text = text
+        , value = value
+        , step = step
+        , minValue = minValue
+        , maxValue = maxValue
+        }
 
 
 avgWage : Int -> Element Msg
@@ -112,8 +117,10 @@ avgWage wage =
         maxValue =
             75000
     in
-    sliderElement updateFn text value step minValue maxValue
-
-
-
-
+    sliderElement updateFn
+        { text = text
+        , value = value
+        , step = step
+        , minValue = minValue
+        , maxValue = maxValue
+        }

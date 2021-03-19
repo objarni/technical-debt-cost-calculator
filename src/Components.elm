@@ -1,12 +1,23 @@
 module Components exposing (..)
+
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Input as Input
 import Model exposing (..)
 
-sliderElement : (Int -> Msg) -> String -> Int -> Int -> Int -> Int -> Element Msg
-sliderElement updateFn text value step minValue maxValue =
+
+type alias SliderParameters =
+    { text : String
+    , value : Int
+    , step : Int
+    , minValue : Int
+    , maxValue : Int
+    }
+
+
+sliderElement : (Int -> Msg) -> SliderParameters -> Element Msg
+sliderElement updateFn params =
     let
         actualUpdateFn x =
             updateFn (round x)
@@ -27,11 +38,11 @@ sliderElement updateFn text value step minValue maxValue =
         { onChange = actualUpdateFn
         , label =
             Input.labelAbove []
-                (Element.text text)
-        , min = toFloat minValue
-        , max = toFloat maxValue
-        , step = Just (toFloat step)
-        , value = toFloat value
+                (Element.text params.text)
+        , min = toFloat params.minValue
+        , max = toFloat params.maxValue
+        , step = Just (toFloat params.step)
+        , value = toFloat params.value
         , thumb =
             Input.defaultThumb
         }
