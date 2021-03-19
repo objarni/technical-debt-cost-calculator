@@ -18,7 +18,11 @@ main =
 
 
 initialModel =
-    TechDebtData { numberOfDevs = 3, averageWage = 30000 }
+    TechDebtData
+        { numberOfDevs = 3
+        , averageWage = 30000
+        , unplannedPercent = 50
+        }
 
 
 view : Model -> Html Msg
@@ -36,6 +40,9 @@ update msg (TechDebtData data) =
         UpdateDevs newDevsCount ->
             TechDebtData { data | numberOfDevs = newDevsCount }
 
+        UpdateUnplanned newUnplanned ->
+            TechDebtData { data | unplannedPercent = newUnplanned }
+
 
 calculator data =
     Element.column
@@ -45,25 +52,26 @@ calculator data =
         , Element.spacing 40
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box data.numberOfDevs data.averageWage, approximation ]
+        [ title, box data.numberOfDevs data.averageWage data.unplannedPercent, approximation ]
 
 
 title =
     Element.text "Uppskatta kostnaden för er tekniska skuld"
 
 
-box devs wage =
+approximation =
+    Element.text "Mycket pengar"
+
+
+box devs wage unplanned =
     Element.column
         [ Element.centerX, Element.centerY ]
         [ numDevs devs
         , avgWage wage
+        , avgUnplanned unplanned
         , Element.text "Uppskattad fördelning buggar/omskrivning (%)*"
         , Element.text "Uppskattad kostnad teknisk skuld (per månad)"
         ]
-
-
-approximation =
-    Element.text "Mycket pengar"
 
 
 numDevs : Int -> Element Msg
@@ -85,4 +93,15 @@ avgWage wage =
         , step = 2500
         , minValue = 20000
         , maxValue = 75000
+        }
+
+
+avgUnplanned : Int -> Element Msg
+avgUnplanned unplanned =
+    sliderElement UpdateUnplanned
+        { text = "Tid (%) buggar/brandsläckning/förseningar: " ++ String.fromInt unplanned
+        , value = unplanned
+        , step = 5
+        , minValue = 15
+        , maxValue = 90
         }
