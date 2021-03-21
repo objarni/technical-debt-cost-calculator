@@ -26,9 +26,9 @@ initialModel =
 
 
 view : Model -> Html Msg
-view (TechDebtData data) =
+view model =
     Element.layout []
-        (calculator data)
+        (calculator model)
 
 
 update : Msg -> Model -> Model
@@ -44,7 +44,7 @@ update msg (TechDebtData data) =
             TechDebtData { data | unplannedPercent = newUnplanned }
 
 
-calculator data =
+calculator (TechDebtData data as model) =
     Element.column
         [ Element.centerX
         , Element.centerY
@@ -52,15 +52,25 @@ calculator data =
         , Element.spacing 40
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box data.numberOfDevs data.averageWage data.unplannedPercent, approximation ]
+        [ title, box data.numberOfDevs data.averageWage data.unplannedPercent, approximation model]
 
 
 title =
     Element.text "Uppskatta kostnaden för er tekniska skuld"
 
-
-approximation =
-    Element.text "Mycket pengar"
+--A2*B2*(C2-15)/100
+approximation : Model -> Element msg
+approximation (TechDebtData data) =
+    let
+        a2 = data.numberOfDevs
+        b2 = data.averageWage
+        c2 = data.unplannedPercent
+        cost = 12 * a2*b2*(c2-15)//100
+    in
+    Element.column []
+        [ Element.text "Uppskattad kostnad (per år)"
+        , Element.text (String.fromInt cost ++ "kr")
+        ]
 
 
 box devs wage unplanned =
