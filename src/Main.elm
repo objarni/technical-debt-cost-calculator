@@ -79,8 +79,6 @@ box devs wage unplanned =
         [ numDevs devs
         , avgWage wage
         , avgUnplanned unplanned
-        , Element.text "Uppskattad fördelning buggar/omskrivning (%)*"
-        , Element.text "Uppskattad kostnad teknisk skuld (per månad)"
         ]
 
 
