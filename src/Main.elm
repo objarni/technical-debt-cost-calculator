@@ -68,7 +68,7 @@ approximation (TechDebtData data) =
         cost = 12 * a2*b2*(c2-15)//100
     in
     Element.column []
-        [ Element.text "Uppskattad kostnad (per år)"
+        [ Element.text "💸 Uppskattad kostnad (per år)"
         , Element.text (String.fromInt cost ++ "kr")
         ]
 
@@ -85,7 +85,7 @@ box devs wage unplanned =
 numDevs : Int -> Element Msg
 numDevs devCount =
     sliderElement UpdateDevs
-        { text = "Antal utvecklare: " ++ String.fromInt devCount
+        { text = "👩‍💻 Antal utvecklare: " ++ String.fromInt devCount
         , value = devCount
         , step = 1
         , minValue = 3
@@ -96,7 +96,7 @@ numDevs devCount =
 avgWage : Int -> Element Msg
 avgWage wage =
     sliderElement UpdateWage
-        { text = "Genomsnittslön (per månad): " ++ String.fromInt wage
+        { text = "💰 Genomsnittslön (per månad): " ++ String.fromInt wage
         , value = wage
         , step = 2500
         , minValue = 20000
@@ -107,7 +107,7 @@ avgWage wage =
 avgUnplanned : Int -> Element Msg
 avgUnplanned unplanned =
     sliderElement UpdateUnplanned
-        { text = "Tid (%) buggar/brandsläckning/förseningar: " ++ String.fromInt unplanned
+        { text = "😳 Tid (%) buggar/brandsläckning/förseningar: " ++ String.fromInt unplanned
         , value = unplanned
         , step = 5
         , minValue = 15
