@@ -1,6 +1,6 @@
 Önskelista (osorterad)
 ----------------------
-
+- den funkar i mobiler
 - länk till pappret med formeln/forskningen
   https://codescene.com/technical-debt/whitepaper/calculate-business-costs-of-technical-debt.pdf
 - en/sv switch
