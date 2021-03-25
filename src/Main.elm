@@ -49,10 +49,10 @@ calculator (TechDebtData data as model) =
         [ Element.centerX
         , Element.centerY
         , Element.padding 40
-        , Element.spacing 40
+        , Element.spacing 60
         , Background.color (Element.rgb255 230 230 250)
         ]
-        [ title, box data.numberOfDevs data.averageWage data.unplannedPercent, approximation model]
+        [ title, inputBox data.numberOfDevs data.averageWage data.unplannedPercent, approximation model]
 
 
 title =
@@ -73,9 +73,9 @@ approximation (TechDebtData data) =
         ]
 
 
-box devs wage unplanned =
+inputBox devs wage unplanned =
     Element.column
-        [ Element.centerX, Element.centerY ]
+        [ Element.centerX, Element.centerY, Element.spacing 40 ]
         [ numDevs devs
         , avgWage wage
         , avgUnplanned unplanned
