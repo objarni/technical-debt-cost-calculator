@@ -100,7 +100,7 @@ avgWage wage =
         , value = wage
         , step = 2500
         , minValue = 20000
-        , maxValue = 75000
+        , maxValue = 125000
         }
 
 
