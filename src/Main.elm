@@ -68,7 +68,7 @@ approximation (TechDebtData data) =
         cost = 12 * a2*b2*(c2-15)//100
     in
     Element.column []
-        [ Element.text "💸 Uppskattad kostnad jämfört med ett high performing team (per år)"
+        [ Element.text "💸 Uppskattad extra kostnad jämfört med ett high performing team (per år)"
         , Element.text (String.fromInt cost ++ "kr")
         ]
 
