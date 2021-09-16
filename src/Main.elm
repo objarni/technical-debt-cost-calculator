@@ -107,7 +107,7 @@ avgWage wage =
 avgUnplanned : Int -> Element Msg
 avgUnplanned unplanned =
     sliderElement UpdateUnplanned
-        { text = "😳 Tid (%) buggar/brandsläckning/förseningar: " ++ String.fromInt unplanned
+        { text = "😳 Tid (%) för buggar/brandsläckning/förseningar (ett high performing team har 15%, det är orimligt att komma under detta): " ++ String.fromInt unplanned
         , value = unplanned
         , step = 5
         , minValue = 15
