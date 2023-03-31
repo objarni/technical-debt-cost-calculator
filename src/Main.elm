@@ -65,10 +65,10 @@ approximation (TechDebtData data) =
         a2 = data.numberOfDevs
         b2 = data.averageWage
         c2 = data.unplannedPercent
-        cost = 12 * a2*b2*(c2-15)//100
+        cost = 12 * a2*b2*(c2 - 15)//100
     in
     Element.column []
-        [ Element.text "💸 Uppskattad extra kostnad jämfört med ett high performing team (per år)"
+        [ Element.text "💸 Uppskattad kostnad per år.\nExtra jämfört med ett high performing team"
         , Element.text (String.fromInt cost ++ "kr")
         ]
 
@@ -85,7 +85,7 @@ inputBox devs wage unplanned =
 numDevs : Int -> Element Msg
 numDevs devCount =
     sliderElement UpdateDevs
-        { text = "👩‍💻 Antal utvecklare: " ++ String.fromInt devCount
+        { text = "👩‍💻 Antal utvecklare\n" ++ String.fromInt devCount
         , value = devCount
         , step = 1
         , minValue = 3
@@ -96,7 +96,7 @@ numDevs devCount =
 avgWage : Int -> Element Msg
 avgWage wage =
     sliderElement UpdateWage
-        { text = "💰 Genomsnittslön (per månad): " ++ String.fromInt wage
+        { text = "💰 Genomsnittslön (per månad)\n" ++ String.fromInt wage
         , value = wage
         , step = 2500
         , minValue = 20000
@@ -106,8 +106,11 @@ avgWage wage =
 
 avgUnplanned : Int -> Element Msg
 avgUnplanned unplanned =
+    let txt =  ("😳 Tid (%) för buggar/brandsläckning/förseningar.\n" ++
+                "Ett high performing team har 15%\n")
+    in
     sliderElement UpdateUnplanned
-        { text = "😳 Tid (%) för buggar/brandsläckning/förseningar (ett high performing team har 15%, det är orimligt att komma under detta): " ++ String.fromInt unplanned
+        { text = txt ++ String.fromInt unplanned
         , value = unplanned
         , step = 5
         , minValue = 15
